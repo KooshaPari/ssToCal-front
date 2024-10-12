@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
-import GoogleSignIn_GoogleSignIn
-import GoogleSignIn_GoogleSignInSwift
+import GoogleSignIn
+import GoogleSignInSwift
+func handleSignInButton() {
+ 
+  print("Success")
+}
 struct ContentView: View {
     @State var eventName: String = ""
     @State var eventDescr: String = ""
@@ -33,20 +37,7 @@ struct ContentView: View {
                 Text("Selected Date: \(selectedDate.formatted(date: .abbreviated, time: .omitted))")
                 GoogleSignInButton(action: handleSignInButton)
             }
-            GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
-                if let error = error {
-                    print("Google Sign-In failed: \(error.localizedDescription)")
-                    return
-                }
-                
-                // Successfully signed in
-                guard let user = signInResult?.user else { return }
-                print("User signed in: \(user.profile?.name ?? "Unknown")")
-            }
         }
-        .onOpenURL { url in
-                  GIDSignIn.sharedInstance.handle(url)
-        .padding()
     }
     
 }
